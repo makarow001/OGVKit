@@ -64,5 +64,6 @@ typedef NS_ENUM(int, OGVInputStreamState) {
  */
 +(OGVInputStream *)inputStreamWithURL:(NSURL *)URL;
 +(OGVInputStream *)inputStreamWithData:(NSData *)data;
++(OGVInputStream *)createFileInputWithUrl:(NSURL *)url; // Swift cover
 
 @end

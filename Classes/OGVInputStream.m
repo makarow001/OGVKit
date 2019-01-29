@@ -232,5 +232,8 @@
     return [[OGVDataInputStream alloc] initWithData:data];
 }
 
++(OGVInputStream *)createFileInputWithUrl:(NSURL *)url {
+    return [[OGVFileInputStream alloc] initWithURL:url];
+}
 
 @end
