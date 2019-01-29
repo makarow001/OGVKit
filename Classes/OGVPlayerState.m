@@ -34,6 +34,7 @@
     BOOL playAfterLoad;
     BOOL seeking;
     BOOL ended;
+    BOOL isAudioMuted;
     
     dispatch_queue_t decodeQueue;
     dispatch_queue_t delegateQueue;
@@ -196,7 +197,6 @@
     });
 }
 
-
 #pragma mark - getters/setters
 
 -(BOOL)paused
@@ -309,7 +309,11 @@
     assert(!audioFeeder);
 
     audioFeeder = [[OGVAudioFeeder alloc] initWithFormat:decoder.audioFormat];
-
+    if (isAudioMuted) {
+        [audioFeeder mute];
+    } else {
+        [audioFeeder unmute];
+    }
     // Reset to audio clock
     initTime = self.baseTime;
     offsetTime = offset;
@@ -605,6 +609,22 @@
     [self callDelegateSelector:@selector(ogvPlayerState:customizeURLRequest:) sync:YES withBlock:^() {
         [self->delegate ogvPlayerState:self customizeURLRequest:request];
     }];
+}
+
+-(void)mute
+{
+    isAudioMuted = true;
+    if (audioFeeder != nil) {
+        [audioFeeder mute];
+    }
+}
+
+-(void)unmute
+{
+    isAudioMuted = false;
+    if (audioFeeder != nil) {
+        [audioFeeder unmute];
+    }
 }
 
 @end

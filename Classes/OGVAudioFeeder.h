@@ -70,4 +70,6 @@
  */
 -(BOOL)isClosed;
 
+-(void)mute;
+-(void)unmute;
 @end

@@ -87,6 +87,7 @@ static void OGVAudioFeederPropListener(void *data, AudioQueueRef queue, AudioQue
     BOOL isClosing;
     BOOL isClosed;
     BOOL shouldClose;
+    BOOL isMuted;
 }
 
 -(id)initWithFormat:(OGVAudioFormat *)format
@@ -382,10 +383,26 @@ static void OGVAudioFeederPropListener(void *data, AudioQueueRef queue, AudioQue
         }
         for (int i = 0; i < buffer.samples; i++) {
             for (int channel = 0; channel < channels; channel++) {
-                circularBuffer[circularTail] = srcData[channel][i];
+                if (!isMuted) {
+                    circularBuffer[circularTail] = srcData[channel][i];
+                }
                 circularTail = (circularTail + 1) % circularBufferSize;
             }
         }
+    }
+}
+
+-(void)mute
+{
+    @synchronized (timeLock) {
+        isMuted = true;
+    }
+}
+
+-(void)unmute
+{
+    @synchronized (timeLock) {
+        isMuted = false;
     }
 }
 
