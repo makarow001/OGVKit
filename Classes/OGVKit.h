@@ -40,7 +40,6 @@
 #import "OGVFileOutputStream.h"
 #import "OGVAudioEncoder.h"
 #import "OGVVideoEncoder.h"
-#import "OGVMuxer.h"
 #import "OGVEncoder.h"
 #endif
 
@@ -74,10 +73,6 @@
  * not correctly labeled or the type was vague.
  */
 - (OGVDecoder *)decoderForType:(OGVMediaType *)mediaType;
-
-- (OGVMuxer *)muxerForType:(OGVMediaType *)mediaType;
-- (OGVVideoEncoder *)videoEncoderForType:(OGVMediaType *)mediaType format:(OGVVideoFormat *)format options:(NSDictionary *)options;
-- (OGVAudioEncoder *)audioEncoderForType:(OGVMediaType *)mediaType format:(OGVAudioFormat *)format options:(NSDictionary *)options;
 
 /**
  * The logger; can be set to override the default one or its settings.

@@ -78,32 +78,4 @@
     }
 }
 
-- (OGVMuxer *)muxerForType:(OGVMediaType *)mediaType
-{
-    // hack
-#ifdef OGVKIT_HAVE_WEBM_MUXER
-    return [[OGVWebMMuxer alloc] init];
-#else
-    return nil;
-#endif
-}
-
-- (OGVVideoEncoder *)videoEncoderForType:(OGVMediaType *)mediaType format:(OGVVideoFormat *)format options:(NSDictionary *)options
-{
-#ifdef OGVKIT_HAVE_VP8_ENCODER
-    return [[OGVVP8Encoder alloc] initWithFormat:format options:options];
-#else
-    return nil;
-#endif
-}
-
-- (OGVAudioEncoder *)audioEncoderForType:(OGVMediaType *)mediaType format:(OGVAudioFormat *)format options:(NSDictionary *)options
-{
-#ifdef OGVKIT_HAVE_VORBIS_ENCODER
-    return [[OGVVorbisEncoder alloc] initWithFormat:format options:options];
-#else
-    return nil;
-#endif
-}
-
 @end
